@@ -11,5 +11,6 @@ object Hello {
     println("Guten Morgen, meine Damen und Herren - Martin")
     println("Guten Morgen, Thurid")
     println("Guten Morgen, von Florian")
+    println("Ich bin müde, von Andreas");
   }
 }
