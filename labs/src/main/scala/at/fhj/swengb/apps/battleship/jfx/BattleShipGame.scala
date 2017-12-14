@@ -43,7 +43,35 @@ case class BattleShipGame(battleField: BattleField,
   // TODO make sure that when a vessel was destroyed, it is sunk and cannot be destroyed again. it is destroyed already.
   // TODO if all vessels are destroyed, display this to the user
   // TODO reset game state when a new game is started
-  def updateGameState(vessel: Vessel, pos: BattlePos): Unit = ()
+  def updateGameState(vessel: Vessel, pos: BattlePos): Unit = {
+    log("Hit vessel " + vessel.name.value + " at position " + pos)
+
+    if (hits.contains(vessel)) {
+      val hitsForVessel: Set[BattlePos] = hits(vessel)
+      if (hitsForVessel.contains(pos)) {
+        log(s"Vessel ${vessel.name.value} was hit at position $pos already before!")
+      } else {
+        val n = hitsForVessel.size + 1
+        log (s"Vessel ${vessel.name.value} was hit $n times.")
+      }
+      hits = hits.updated(vessel, hitsForVessel + pos)
+
+      if (vessel.occupiedPos==hits(vessel)){
+        log("Ship is destroyed")
+
+        sunkShips = sunkShips + vessel
+        if(battleField.fleet.vessels == sunkShips){
+          log("Game Over")
+        }
+      }
+
+    } else {
+      log("First hit on vessel " + vessel.name.value + ".")
+      hits = hits.updated(vessel, Set(pos))
+    }
+  }
+
+
 
 
   // 'display' cells

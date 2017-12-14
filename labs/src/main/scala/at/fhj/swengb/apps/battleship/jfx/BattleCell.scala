@@ -25,13 +25,14 @@ case class BattleCell(pos: BattlePos
   setOnMouseClicked(e => {
     someVessel match {
       case None =>
-       // log(s"Missed. Just hit water.")
+        log(s"Missed. Just hit water.")
         setFill(Color.YELLOW)
       case Some(v) =>
-        //log(s"Hit an enemy vessel!")
+        log(s"Hit an enemy vessel!")
         fn(v, pos)
         setFill(Color.RED)
     }
+
   })
 
 }
